@@ -1,5 +1,7 @@
 const speechBubble = document.querySelector('.speech-bubble');
 const mouth = document.querySelector('.mouth');
+let words = document.querySelector('h2');
+
 let SpeechRecognition;
 let SpeechGrammarList;
 let SpeechRecognitionEvent;
