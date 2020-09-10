@@ -211,7 +211,7 @@ p:hover {
   width: 200px;
   transform-origin: bottom left;
   transform: rotate(120deg);
-  animation: wave 10s 1;
+  animation: wave 7s 1;
 }
 
 .hand {
