@@ -8,6 +8,30 @@
   margin: auto;
 }
 
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+button {
+  font-size: 40px;
+  padding: 10px 15px;
+  background: slategray;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: black;
+}
+
+button:disabled {
+  background: lightgray;
+  cursor: default;
+}
+
 h1 {
   font-size: 50px;
   margin: 20px;
@@ -26,6 +50,7 @@ h2 {
   animation: speak 2s infinite;
 }
 
+
 .bubble {
   border: 5px solid black;
   margin: 30px auto;
@@ -43,6 +68,15 @@ h2 {
   border-right: 25px solid transparent;
   border-top: 40px solid black;
   transform: translate(200px, -5px);
+}
+
+.thought-bubble>.bubble {
+  border: 5px solid gainsboro;
+  color: gainsboro;
+}
+
+.thought-bubble>.tail {
+  border-top: 40px solid gainsboro;
 }
 
 .robot {
