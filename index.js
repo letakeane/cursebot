@@ -45,18 +45,18 @@ function robotStartSpeaking(text) {
 
 function robotStopSpeaking(initial) {
   if (initial) {
+    robotStartListening();
     setTimeout(() => {
       speechBubble.classList.add('hidden');
       thoughtBubble.classList.remove('hidden');
-    }, 950);
-    robotStartListening();
+    }, 600);
   }
 
   mouth.classList.remove('speak');
   setTimeout(() => {
     changeMood.classList.remove('hidden');
     another.classList.remove('hidden');
-  })
+  }, 600)
 }
 
 function robotStartListening() {
