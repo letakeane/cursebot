@@ -12,7 +12,7 @@ let words = document.querySelector('.speech-bubble h2');
 let SpeechRecognition;
 let SpeechGrammarList;
 let SpeechRecognitionEvent;
-const grammar = '#JSGF V1.0; grammar moods; public <mood> = happy | sad | scared | tired | angry | confused ;'
+const grammar = '#JSGF V1.0; grammar moods; public <mood> = happy | sad | scared | tired | angry | confused | determined ;'
 let recognition;
 let speechRecognitionList;
 
