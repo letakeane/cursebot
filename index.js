@@ -12,23 +12,24 @@ let words = document.querySelector('.speech-bubble h2');
 let SpeechRecognition;
 let SpeechGrammarList;
 let SpeechRecognitionEvent;
-const grammar = '#JSGF V1.0; grammar moods; public <mood> = happy | sad | scared | tired | angry | confused | determined ;'
+const grammar = '#JSGF V1.0; grammar moods; public <mood> = happy | sad | anxious | tired | angry | confused | determined ;'
 let recognition;
 let speechRecognitionList;
+let mood;
 
 // EVENT LISTENERS //
 window.onload = initializeSpeech;
 beginButton.addEventListener('click', () => speak('Why hello, friend! How are you feeling today?', true));
+window.speechSynthesis.onvoiceschanged = function () {
+  window.speechSynthesis.getVoices();
+  beginButton.disabled = false;
+};
 
 // EVENT HANDLERS //
 function initializeSpeech() {
   SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
   SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
   SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
-  recognition = new SpeechRecognition();
-  speechRecognitionList = new SpeechGrammarList();
-  speechRecognitionList.addFromString(grammar, 1);
-  recognition.grammars = speechRecognitionList;
 }
 
 function robotStartSpeaking(text) {
@@ -38,12 +39,40 @@ function robotStartSpeaking(text) {
   mouth.classList.add('speak');
 }
 
-function robotStopSpeaking() {
-  setTimeout(() => {
-    speechBubble.classList.add('hidden');
-    thoughtBubble.classList.remove('hidden');
-  }, 950);
+function robotStopSpeaking(initial) {
+  if (initial) {
+    setTimeout(() => {
+      speechBubble.classList.add('hidden');
+      thoughtBubble.classList.remove('hidden');
+    }, 950);
+    robotStartListening();
+  }
+
   mouth.classList.remove('speak');
+}
+
+function robotStartListening() {
+  console.log('listening!')
+
+  recognition = new SpeechRecognition() || new webkitSpeechRecognition();
+  speechRecognitionList = new SpeechGrammarList();
+  speechRecognitionList.addFromString(grammar, 1);
+  recognition.grammars = speechRecognitionList;
+  recognition.continuous = false;
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = function (event) {
+    mood = event.results[0][0].transcript;
+    speak(getRandomAffirmation(mood));
+  }
+
+  recognition.onspeechend = function() {
+    recognition.stop();
+  }
+
+  recognition.start();
 }
 
 function wakeUp() {
@@ -54,20 +83,19 @@ function wakeUp() {
 }
 
 function speak(text, initial) {
-  if (initial) {
-    wakeUp();
-  }
+  if (initial) wakeUp();
   
   robotStartSpeaking(text);
-  synthVoice(text)
+  synthVoice(text, initial)
 }
 
-function synthVoice(text) {
+function synthVoice(text, initial) {
   const synth = window.speechSynthesis;
   const thisVoice = synth.getVoices()[11];
   const utterance = new SpeechSynthesisUtterance();
   utterance.voice = thisVoice;
   utterance.text = text;
   synth.speak(utterance);
-  utterance.addEventListener('end', robotStopSpeaking);
+
+  utterance.addEventListener('end', () => robotStopSpeaking(initial));
 }

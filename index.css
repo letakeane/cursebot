@@ -190,7 +190,7 @@ h2 {
   flex-direction: column;
   position: fixed;
   bottom: -50px;
-  right: 200px;
+  right: calc(50vw - 500px);
   width: 200px;
   transform-origin: bottom left;
   transform: rotate(120deg);
