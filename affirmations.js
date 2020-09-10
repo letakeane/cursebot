@@ -43,7 +43,8 @@ const affirmations = {
     "Look for the helpers in your life!",
     "Take time to understand what this moment is trying to teach you.",
     "Knowing you don't understand is the first step of growth!",
-    "See the abundance of your abilities and growth!"
+    "See the abundance of your abilities and growth!",
+    "You are in a state of exploration! See what you can find!"
   ],
   determined: [
     "You deserve the life you want! Don't settle!",
