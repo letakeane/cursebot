@@ -1,0 +1,283 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 0;
+  margin: auto;
+}
+
+h1 {
+  font-size: 50px;
+  margin: 20px;
+}
+
+h2 {
+  font-size: 50px;
+  font-weight: 100;
+}
+
+.hidden {
+  display: none;
+}
+
+.speak {
+  animation: speak 2s infinite;
+}
+
+.bubble {
+  border: 5px solid black;
+  margin: 30px auto;
+  margin-bottom: 0;
+  width: 700px;
+  height: 270px;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+.tail {
+  width: 0; 
+  height: 0; 
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 40px solid black;
+  transform: translate(200px, -5px);
+}
+
+.robot {
+  position: fixed;
+  left: calc(50vw - 250px);
+  bottom: 0;
+  width: 500px;
+  height: 63vh;
+  display: grid;
+  grid-template-areas:
+    "antenna"
+    "head"
+    "neck"
+    "body";
+}
+
+.antenna {
+  grid-area: antenna;
+  height: 9vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.light {
+  height: 5vh;
+  width: 5vh;
+  border-radius: 50%;
+  background: crimson;
+  box-shadow: 0 0 15px crimson;
+  animation: glow 2s infinite;
+}
+
+.shine {
+  height: 1vh;
+  width: 1vh;
+  border-radius: 50%;
+  background: white;
+  transform: translate(-5px, 5px);
+  box-shadow: 2px 2px 5px white;
+}
+
+.rod {
+  height: 4vh;
+  width: 15px;
+  background: darkgray;
+  z-index: -1;
+}
+
+.head {
+  grid-area: head;
+  height: 42vh;
+  width: 500px;
+  background: silver;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.eyes {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  width: 500px;
+  margin-top: 20px;
+}
+
+.eye {
+  height: 100px;
+  width: 50px;
+  border-radius: 50%;
+  background: forestgreen;
+  animation: blink 60s infinite;
+}
+
+.eye>.shine {
+  height: 4vh;
+  width: 2vh;
+  transform: translate(-5px, 10px) rotate(5deg);
+  animation: blinkShine 60s infinite;
+}
+
+.mouth {
+  height: 30px;
+  width: 300px;
+  background: gray;
+  margin-top: 80px;
+}
+
+.neck {
+  grid-area: neck;
+  height: 8vh;
+  width: 65px;
+  background: darkgray;
+}
+
+.body {
+  grid-area: body;
+  height: 8vh;
+  width: 400px;
+  border-radius: 75px 75px 0 0;
+  background: silver;
+}
+
+@keyframes glow {
+  20% {
+    box-shadow: 0 0 5px crimson;
+  }
+
+  40% {
+    box-shadow: 0 0 25px crimson;
+  }
+
+  60% {
+    box-shadow: 0 0 5px crimson;
+  }
+}
+
+@keyframes blink {
+  4% {
+    height: 100px;
+  }
+  5% {
+    height: 0;
+  }
+  6% {
+    height: 100px;
+  }
+
+  54% {
+    height: 100px;
+  }
+  55% {
+    height: 0;
+  }
+  56% {
+    height: 100px;
+  }
+
+  62% {
+    height: 100px;
+  }
+  63% {
+    height: 0;
+  }
+  64% {
+    height: 100px;
+  }
+}
+
+@keyframes blinkShine {
+  4% {
+    opacity: 1;
+    height: 4vh;
+  }
+  5% {
+    opacity: 0;
+    height: 0;
+  }
+  6% {
+    opacity: 1;
+    height: 4vh;
+  }
+
+  54% {
+    opacity: 1;
+    height: 4vh;
+  }
+  55% {
+    opacity: 0;
+    height: 0;
+  }
+  56% {
+    opacity: 1;
+    height: 4vh;
+  }
+
+  62% {
+    opacity: 1;
+    height: 4vh;
+  }
+  63% {
+    opacity: 0;
+    height: 0;
+  }
+  64% {
+    opacity: 1;
+    height: 4vh;
+  }
+}
+
+@keyframes speak {
+  3% {
+    background: gray;
+  }
+  7% {
+    background: slategray;
+  }
+  10% {
+    background: gray;
+  }
+  12% {
+    background: gray;
+  }
+  15% {
+    background: slategray;
+  }
+  19% {
+    background: gray;
+  }
+  26% {
+    background: gray;
+  }
+  32% {
+    background: slategray;
+  }
+  40% {
+    background: gray;
+  }
+  55% {
+    background: gray;
+  }
+  63% {
+    background: slategray;
+  }
+  70% {
+    background: gray;
+  }
+  81% {
+    background: gray;
+  }
+  90% {
+    background: slategray;
+  }
+  99% {
+    background: gray;
+  }
+}
