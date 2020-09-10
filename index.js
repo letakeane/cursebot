@@ -1,22 +1,26 @@
+// QUERY SELECTORS //
 const beginButton = document.querySelector('.begin');
 const speechBubble = document.querySelector('.speech-bubble');
 const thoughtBubble = document.querySelector('.thought-bubble');
+const light = document.querySelector('.light');
+const eyes = document.querySelectorAll('.eye');
+const eyeshine = document.querySelectorAll('.eye .shine');
 const mouth = document.querySelector('.mouth');
-let words = document.querySelector('h2');
+let words = document.querySelector('.speech-bubble h2');
+
+// SPEECH DEFINITIONS //
 let SpeechRecognition;
 let SpeechGrammarList;
 let SpeechRecognitionEvent;
 const grammar = '#JSGF V1.0; grammar moods; public <mood> = happy | sad | scared | tired | angry | confused ;'
 let recognition;
 let speechRecognitionList;
-// let synth;
-// let myVoices;
-// let myVoice;
-// let speech;
 
+// EVENT LISTENERS //
 window.onload = initializeSpeech;
-beginButton.addEventListener('click', () => speak(true));
+beginButton.addEventListener('click', () => speak('Why hello, friend! How are you feeling today?', true));
 
+// EVENT HANDLERS //
 function initializeSpeech() {
   SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
   SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
@@ -25,17 +29,12 @@ function initializeSpeech() {
   speechRecognitionList = new SpeechGrammarList();
   speechRecognitionList.addFromString(grammar, 1);
   recognition.grammars = speechRecognitionList;
-
-  // synth = speechSynthesis;
-  // myVoices = synth.getVoices();
-  // myVoice = myVoices[10];
-
-  // beginButton.disabled = false;
 }
 
-function robotStartSpeaking() {
+function robotStartSpeaking(text) {
   speechBubble.classList.remove('hidden');
   thoughtBubble.classList.add('hidden');
+  words.innerText = text;
   mouth.classList.add('speak');
 }
 
@@ -43,17 +42,24 @@ function robotStopSpeaking() {
   setTimeout(() => {
     speechBubble.classList.add('hidden');
     thoughtBubble.classList.remove('hidden');
-  }, 1000);
+  }, 950);
   mouth.classList.remove('speak');
 }
 
-function speak(initial) {
+function wakeUp() {
+  beginButton.classList.add('hidden');
+  eyes.forEach(eye => eye.classList.remove('asleep'));
+  eyeshine.forEach(shine => shine.classList.remove('asleep'));
+  light.classList.remove('asleep');
+}
+
+function speak(text, initial) {
   if (initial) {
-    beginButton.classList.add('hidden');
+    wakeUp();
   }
   
-  robotStartSpeaking();
-  synthVoice('Hello, friend! How are you feeling today?')
+  robotStartSpeaking(text);
+  synthVoice(text)
 }
 
 function synthVoice(text) {
@@ -65,4 +71,3 @@ function synthVoice(text) {
   synth.speak(utterance);
   utterance.addEventListener('end', robotStopSpeaking);
 }
-
