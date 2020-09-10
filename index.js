@@ -2,6 +2,8 @@
 const beginButton = document.querySelector('.begin');
 const speechBubble = document.querySelector('.speech-bubble');
 const thoughtBubble = document.querySelector('.thought-bubble');
+const changeMood = document.querySelector('.change-mood');
+const another = document.querySelector('.another');
 const light = document.querySelector('.light');
 const eyes = document.querySelectorAll('.eye');
 const eyeshine = document.querySelectorAll('.eye .shine');
@@ -24,6 +26,8 @@ window.speechSynthesis.onvoiceschanged = function () {
   window.speechSynthesis.getVoices();
   beginButton.disabled = false;
 };
+another.addEventListener('click', () => speak(getRandomAffirmation(mood)));
+changeMood.addEventListener('click', () => robotStopSpeaking(true));
 
 // EVENT HANDLERS //
 function initializeSpeech() {
@@ -49,6 +53,10 @@ function robotStopSpeaking(initial) {
   }
 
   mouth.classList.remove('speak');
+  setTimeout(() => {
+    changeMood.classList.remove('hidden');
+    another.classList.remove('hidden');
+  })
 }
 
 function robotStartListening() {
