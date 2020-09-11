@@ -169,7 +169,7 @@ p:hover {
   height: 100px;
   width: 50px;
   border-radius: 50%;
-  background: forestgreen;
+  background: orange;
   animation: blink 60s infinite;
 }
 
