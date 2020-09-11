@@ -22,7 +22,7 @@ let mood;
 // EVENT LISTENERS //
 window.onload = initializeSpeech;
 beginButton.addEventListener('click', () => speak('Why hello, friend! How are you feeling today?', true));
-window.speechSynthesis.onvoiceschanged = function () {
+window.speechSynthesis.onvoiceschanged = function() {
   window.speechSynthesis.getVoices();
   beginButton.disabled = false;
 };
@@ -60,26 +60,33 @@ function robotStopSpeaking(initial) {
 }
 
 function robotStartListening() {
-  console.log('listening!')
-
-  recognition = new SpeechRecognition() || new webkitSpeechRecognition();
+  // Create a new recognition instance
+  recognition = new SpeechRecognition();
+  // Create a new SpeechGrammarList instance 
   speechRecognitionList = new SpeechGrammarList();
+  // Add our grammar string to the speechRecognitionList
   speechRecognitionList.addFromString(grammar, 1);
+  // Tell recognition instance that its grammar is the speechRecognitionList
   recognition.grammars = speechRecognitionList;
+  // Set other recognition data
   recognition.continuous = false;
   recognition.lang = 'en-US';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
-  recognition.onresult = function (event) {
+  // Tell recognition to update the mood & to speak when it receives a result
+  recognition.onresult = function(event) {
     mood = event.results[0][0].transcript;
+
     speak(getRandomAffirmation(mood));
   }
 
+  // Tell recognition to stop listening when the speaker stops talking
   recognition.onspeechend = function() {
     recognition.stop();
   }
 
+  // Start listening!
   recognition.start();
 }
 
@@ -98,11 +105,19 @@ function speak(text, initial) {
 }
 
 function synthVoice(text, initial) {
+  // Define the speechSynthesis object
+  // Get the voices from the speechSynth object and specify the 11th voice
+  // Create a new SpeechSynthesisUtterance instance
+  // Tell the utterance its voice
+  // Tell the utterance its text
+
   const synth = window.speechSynthesis;
   const thisVoice = synth.getVoices()[11];
   const utterance = new SpeechSynthesisUtterance();
   utterance.voice = thisVoice;
   utterance.text = text;
+
+  // Tell the synth to speak the utterance
   synth.speak(utterance);
 
   utterance.addEventListener('end', () => robotStopSpeaking(initial));
